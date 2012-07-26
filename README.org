@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*-
+
+* About
+
+Some auxiliary tools for PIHM.
+
+One of the shortcomings of official version is the inability to
+streamline the workflow. Steps like watershed delineation can be
+automated with sextante plug-in making it easy to use either GRASS GIS
+or TauDEM for that purpose. However standard PIHM plug-in tool expect
+data in certain format. The goal of this plug-in is to bridge that gap
+by providing missing functionality to help prepare input data for PIHM.
+
+* Tools
+
+** Input converter for Triangle
+
+There is no 2 vertices per line limitation. Triangle handles duplicate
+points properly. No care was taken of that.
+
+** NLDAS-2 extractor
+
+QGIS plug-in may not quite work as expected. Use standalone version
+for now.
+
+* Installation
+
+Some tools in this plug-in (e.g., [[http://ldas.gsfc.nasa.gov/nldas/NLDAS2forcing.php][NLDAS-2]] extractor) require extra
+Python packages ([[http://www.opendap.org][OPeNDAP/DODS]] client for [[http://www.iges.org/grads/gds][GrADS Data Server]] [[http://hydro1.sci.gsfc.nasa.gov/dods/NLDAS_FORA0125_H.002.info][at NOAA]]).
+
+** MS Windows
+
+The following has been tested with QGIS from OSGeo4W.
+
+1. [[http://trac.osgeo.org/osgeo4w/wiki/ExternalPythonPackages][Install pip]]
+2. [[http://pydap.org/][Install pydap]]
+3. =cd %HOME%\.qgis\python\plugins=
+4. =git clone https://github.com/mlt/pihm_helper.git=
+
+If you don't have git, just unpack [[https://github.com/mlt/pihm_helper/zipball/master][downloaded archive]] over there.
+
+** Ubuntu GNU/Linux and alike
+
+# You can install OPeNDAP client for Python using
+# =sudo apt-get install python-dap=
+
+Note that Ubuntu has an older version of Pydap (2.x vs 3.x). You can
+install [[http://pypi.python.org/pypi/Pydap/3.1.RC1][pydap]] from [[http://pypi.python.org][PyPI]] using pip instead of =sudo apt-get install python-dap=.

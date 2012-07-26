@@ -1,0 +1,19 @@
+[general]
+name=PIHM helper
+qgisMinimumVersion=1.8
+description=Auxiliary tools for PIHM and not only
+category=Plugin
+version=version 0.1
+
+changelog=initial release
+
+tags=pihm,nldas
+
+homepage=https://github.com/mlt/pihm_helper
+tracker=https://github.com/mlt/pihm_helper/issues
+repository=https://github.com/mlt/pihm_helper
+icon=icon.png
+
+experimental=True
+
+deprecated=False
