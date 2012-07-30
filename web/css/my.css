@@ -1,0 +1,21 @@
+#linklist {
+    background-color: inherit;
+    z-index: 101;
+ }
+.title{
+    background: #eee;
+}
+
+h2 {
+    font-family:Arial,sans-serif;
+    font-size:1.45em;
+    line-height:16px;
+    padding:7px 0 0 0;
+    color: #6E2432;
+}
+
+div.figure { display: inline-block }
+div.figure p img { max-height: 300px; }
+div.figure p + p { text-align: center; font-weight: bold; }
+
+pre.src, pre.example { font-size: 75%; }

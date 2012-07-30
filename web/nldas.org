@@ -1,0 +1,100 @@
+#+SETUPFILE: level-0.template
+#+TITLE: NLDAS-2 Extractor
+#+DESCRIPTION:
+#+KEYWORDS:
+#+INCLUDE: sitemap.org
+
+* Setting things up
+
+For historical reasons a shapefile with reference grid is needed for
+this tool to work.
+# The reference grid is made after [[http://hydro1.sci.gsfc.nasa.gov/dods/NLDAS_FORA0125_H.002.info][NLDAS-2 metadata]].
+
+Skip these steps and jump to [[Usage]] if you already have that.
+
+1. Start Vector\to Research Tools\to Vector grid
+2. Enter extent as in [[http://hydro1.sci.gsfc.nasa.gov/dods/NLDAS_FORA0125_H.002.info][NLDAS-2 metadata]] taking into account that those
+   given for centroids.\\
+   So use (-124.938 - 0.0625, 25.063 - 0.0625) --- (-67.063 + 0.0625, 52.938 + 0.0625)\\
+   or (-125.0005, 25.0005) --- (-67.0005, 53.0005)\\
+   #+CAPTION: Vector Grid tool
+   [[./images/nldas_1_vector_grid.PNG]]
+3. Open Attribute Table and toggle editing mode (=Ctrl+E=)
+4. Using field Calculator (=Ctrl+I=) set 1 based indices
+   - NLDAS\_X :: =toint( ( "XMIN" - (-124.938 - 0.0625) ) / 0.125) + 1=
+   - NLDAS\_Y :: =toint( ( "YMIN" - (25.063 - 0.0625) ) / 0.125) + 1=\\
+   #+CAPTION: Field Calculator
+   [[./images/nldas_2_nldas_x.PNG]]
+5. Create text field =NLDAS_ID= by concatenating 'x' || "NLDAS\_X" || 'y' || "NLDAS\_Y" .\\
+   Remember to use /text/ output field type.
+6. Quit editing mode saving changes
+7. Set layer coordinate reference system (CRS) to WGS84 if not
+   assigned yet
+
+Note that there a bugs in Vector Grid plug-in that are fixed in QGIS
+2.0 so your mileage may vary:
+1. http://hub.qgis.org/issues/6109
+2. http://hub.qgis.org/issues/6124
+
+Perhaps it is easier to [[./nldas_reference.zip][download existing one]].
+
+* Usage
+
+There are 3 entry points to extractor:
+
+- Command Line Interface
+- Standalone GUI
+- QGIS plug-in
+
+All interfaces require vector data in WGS84 to define spatial
+coverage. Therefore proper CRS needs to be assigned to the existing
+layer and it must be saved in WGS84 accordingly.
+
+#+CAPTION: Assign CRS if missing
+[[./images/nldas_3_utm.PNG]]
+
+#+CAPTION: Save vector layer in WGS84
+[[./images/nldas_4_wgs84.PNG]]
+
+It should look something like
+
+#+CAPTION: QGIS overview
+[[./images/nldas_5_qgis.PNG]]
+
+if you enabled labeling based on /NLDAS\_ID/. Now you can select
+necessary cells by locations using Vector\to Research Tools\to Select by location
+
+#+CAPTION: Select by location
+[[./images/nldas_6_select.PNG]]
+
+Now you can either save selection and use standalone versions, or jump
+to [[QGIS plugin]]
+
+Make sure that you have all the necessary python modules and that Qt
+shared objects can be found. For instance the following batch file can
+be used on MS Windows.
+
+#+BEGIN_SRC sh
+@echo off
+set OSGEO4W_ROOT=C:\OSGeo4W
+set PYTHONPATH=%OSGEO4W_ROOT%\apps\qgis\python;%OSGEO4W_ROOT%\apps\qgis\python\plugins;%HOME%/.qgis/python/plugins;%OSGEO4W_ROOT%\apps\python27\lib\site-packages
+set PATH=%OSGEO4W_ROOT%\bin;%OSGEO4W_ROOT%\apps\qgis\bin;%OSGEO4W_ROOT%\apps\qgis\plugins
+python nldas_extractor_gui.py %*
+#+END_SRC
+
+** QGIS plugin
+
+Once you have selected cells of interest, you can use Plugin\to PIHM
+helper\to DataModel Loader\to Extract NLDAS-2
+or simply hit =Alt+A, N=
+
+#+CAPTION: NLDAS-2 extractor
+[[./images/nldas_7_extractor.PNG]]
+
+#+CAPTION: NLDAS-2 extraction in progress
+[[./images/nldas_8_progress.PNG]]
+
+Note that there is an [[http://lists.osgeo.org/pipermail/qgis-developer/2012-July/021252.html][issue]] with python threads therefore a workaround
+is used for plug-in to be still usable.
+
+#  LocalWords:  shapefile

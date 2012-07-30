@@ -1,0 +1,25 @@
+#+TITLE: Sitemap
+
+#+html: <div id="linklist">
+
+   + [[file:index.org][Home]]
+   + [[file:nldas.org][NLDAS-2 extractor]]
+
+#+html: </div>
+
+# <a href="https://github.com/mlt/pihm_helper"><img style="position: absolute; top: 0; left: 0; border: 0; z-index: 100" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub"></a>
+
+#+begin_html
+
+<a href="https://github.com/mlt/pihm_helper"><img class="github" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<div id="buttons">
+<div class="ok">
+
+<a href="http://orgmode.org"><img src="images/om.gif" alt="powered by orgmode"/></a>
+
+</div>
+<span class="copyright">Text/code available under GPLv3 and GNU
+  FDLv1.3</span>
+</div>
+#+end_html
