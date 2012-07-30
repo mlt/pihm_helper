@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>NLDAS-2 Extractor</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="NLDAS-2 Extractor"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-07-30T14:48-0500"/>
+<meta name="author" content="Mikhail Titov"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link href="css/lightbox.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/org.css" />
+<link rel="stylesheet" type="text/css" href="css/my.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/lightbox.js"></script>
+<script src="js/my.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">NLDAS-2 Extractor</h1>
+
+
+<div id="linklist">
+
+<ul>
+<li><a href="index.html">Home</a>
+</li>
+<li><a href="nldas.html">NLDAS-2 extractor</a>
+</li>
+</ul>
+
+
+
+
+</div>
+
+
+
+<a href="https://github.com/mlt/pihm_helper"><img class="github" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<div id="buttons">
+<div class="ok">
+
+<a href="http://orgmode.org"><img src="images/om.gif" alt="powered by orgmode"/></a>
+
+</div>
+<span class="copyright">Text/code available under GPLv3 and GNU
+  FDLv1.3</span>
+</div>
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Setting things up</a></li>
+<li><a href="#sec-2">2 Usage</a>
+<ul>
+<li><a href="#sec-2-1">2.1 QGIS plugin</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Setting things up</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+For historical reasons a shapefile with reference grid is needed for
+this tool to work.
+</p>
+<p>
+Skip these steps and jump to <a href="#sec-2">Usage</a> if you already have that.
+</p>
+<ol>
+<li>Start Vector&rarr; Research Tools&rarr; Vector grid
+</li>
+<li>Enter extent as in <a href="http://hydro1.sci.gsfc.nasa.gov/dods/NLDAS_FORA0125_H.002.info">NLDAS-2 metadata</a> taking into account that those
+   given for centroids.<br/>
+   So use (-124.938 - 0.0625, 25.063 - 0.0625) &mdash; (-67.063 + 0.0625, 52.938 + 0.0625)<br/>
+   or (-125.0005, 25.0005) &mdash; (-67.0005, 53.0005)<br/>
+   <div class="figure">
+<p><img src="./images/nldas_1_vector_grid.PNG"  alt="./images/nldas_1_vector_grid.PNG" /></p>
+<p>Vector Grid tool</p>
+</div>
+</li>
+<li>Open Attribute Table and toggle editing mode (<code>Ctrl+E</code>)
+</li>
+<li>Using field Calculator (<code>Ctrl+I</code>) set 1 based indices
+<dl>
+<dt>NLDAS_X</dt><dd><code>toint( ( "XMIN" - (-124.938 - 0.0625) ) / 0.125) + 1</code>
+</dd>
+<dt>NLDAS_Y</dt><dd><code>toint( ( "YMIN" - (25.063 - 0.0625) ) / 0.125) + 1</code><br/>
+   <div class="figure">
+<p><img src="./images/nldas_2_nldas_x.PNG"  alt="./images/nldas_2_nldas_x.PNG" /></p>
+<p>Field Calculator</p>
+</div>
+</li>
+<li>Create text field <code>NLDAS_ID</code> by concatenating 'x' || "NLDAS_X" || 'y' || "NLDAS_Y" .<br/>
+   Remember to use <i>text</i> output field type.
+</li>
+<li>Quit editing mode saving changes
+</li>
+<li>Set layer coordinate reference system (CRS) to WGS84 if not
+   assigned yet
+</li>
+</ol>
+
+
+<p>
+Note that there a bugs in Vector Grid plug-in that are fixed in QGIS
+2.0 so your mileage may vary:
+</p><ol>
+<li><a href="http://hub.qgis.org/issues/6109">http://hub.qgis.org/issues/6109</a>
+</li>
+<li><a href="http://hub.qgis.org/issues/6124">http://hub.qgis.org/issues/6124</a>
+</li>
+</ol>
+
+
+<p>
+Perhaps it is easier to <a href="./nldas_reference.zip">download existing one</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Usage</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+There are 3 entry points to extractor:
+</p>
+<ul>
+<li>Command Line Interface
+</li>
+<li>Standalone GUI
+</li>
+<li>QGIS plug-in
+</li>
+</ul>
+
+
+<p>
+All interfaces require vector data in WGS84 to define spatial
+coverage. Therefore proper CRS needs to be assigned to the existing
+layer and it must be saved in WGS84 accordingly.
+</p>
+
+<div class="figure">
+<p><img src="./images/nldas_3_utm.PNG"  alt="./images/nldas_3_utm.PNG" /></p>
+<p>Assign CRS if missing</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/nldas_4_wgs84.PNG"  alt="./images/nldas_4_wgs84.PNG" /></p>
+<p>Save vector layer in WGS84</p>
+</div>
+
+<p>
+It should look something like
+</p>
+
+<div class="figure">
+<p><img src="./images/nldas_5_qgis.PNG"  alt="./images/nldas_5_qgis.PNG" /></p>
+<p>QGIS overview</p>
+</div>
+
+<p>
+if you enabled labeling based on <i>NLDAS_ID</i>. Now you can select
+necessary cells by locations using Vector&rarr; Research Tools&rarr; Select by location
+</p>
+
+<div class="figure">
+<p><img src="./images/nldas_6_select.PNG"  alt="./images/nldas_6_select.PNG" /></p>
+<p>Select by location</p>
+</div>
+
+<p>
+Now you can either save selection and use standalone versions, or jump
+to <a href="#sec-2-1">QGIS plugin</a>
+</p>
+<p>
+Make sure that you have all the necessary python modules and that Qt
+shared objects can be found. For instance the following batch file can
+be used on MS Windows.
+</p>
+
+
+
+<pre class="src src-sh">@echo off
+<span style="color: #483d8b;">set</span> <span style="color: #a0522d;">OSGEO4W_ROOT</span>=C:\OSGeo4W
+<span style="color: #483d8b;">set</span> <span style="color: #a0522d;">PYTHONPATH</span>=%OSGEO4W_ROOT%\apps\qgis\python;%OSGEO4W_ROOT%\apps\qgis\python\plugins;%HOME%/.qgis/python/plugins;%OSGEO4W_ROOT%\apps\python27\lib\site-packages
+<span style="color: #483d8b;">set</span> <span style="color: #a0522d;">PATH</span>=%OSGEO4W_ROOT%\bin;%OSGEO4W_ROOT%\apps\qgis\bin;%OSGEO4W_ROOT%\apps\qgis\plugins
+python nldas_extractor_gui.py %*
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> QGIS plugin</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+Once you have selected cells of interest, you can use Plugin&rarr; PIHM
+helper&rarr; DataModel Loader&rarr; Extract NLDAS-2
+or simply hit <code>Alt+A, N</code>
+</p>
+
+<div class="figure">
+<p><img src="./images/nldas_7_extractor.PNG"  alt="./images/nldas_7_extractor.PNG" /></p>
+<p>NLDAS-2 extractor</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/nldas_8_progress.PNG"  alt="./images/nldas_8_progress.PNG" /></p>
+<p>NLDAS-2 extraction in progress</p>
+</div>
+
+<p>
+Note that there is an <a href="http://lists.osgeo.org/pipermail/qgis-developer/2012-July/021252.html">issue</a> with python threads therefore a workaround
+is used for plug-in to be still usable.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
